@@ -1,24 +1,39 @@
-import logo from './logo.svg';
+import React, { useEffect } from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import './App.css';
+import 'materialize-css/dist/css/materialize.min.css';
+import M from 'materialize-css/dist/js/materialize.min.js';
 
-function App() {
+import NavBar from './components/layout/Navbar';
+import Home from './components/layout/Home';
+import Dashboard from './components/dashboard/Dashboard';
+import About from './components/About';
+import Footer from './components/layout/Footer';
+
+const App = () => {
+  //Initialize Materialize JS
+  useEffect(() => {
+    M.AutoInit();
+  });
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="App">
+        <NavBar />
+        <Switch>
+          <Route exact path='/'>
+              <Home />
+          </Route>
+          <Route exact path='/dashboard'>
+              <Dashboard />
+          </Route>
+          <Route exact path='/about'>
+              <About />
+          </Route>
+        </Switch>
+        <Footer />
+      </div>
+    </Router>
   );
 }
 
