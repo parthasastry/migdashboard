@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Chart from 'react-apexcharts'; 
+import Preloader from '../layout/Preloader';
 
 export class Burndown extends Component {
 
@@ -9,11 +10,14 @@ export class Burndown extends Component {
             options: {},
             series: [{
                 data: []
-            }]
+            }],
+            loading: false,
         }
     }
 
     componentDidMount() {
+        this.setState({ loading: true });
+
         var options = {
             chart: {
                 height: 350,
@@ -76,15 +80,20 @@ export class Burndown extends Component {
 
         this.setState({
             options: options,
-            series: series
+            series: series,
+            loading: false
         })
     }
 
     
     render() {
+        if(this.state.loading) {
+            return <Preloader />
+        }
 
         return (
             <div>
+               
                 <Chart 
                     options={this.state.options}
                     series={this.state.series}

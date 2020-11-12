@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Chart from 'react-apexcharts'; 
+import Preloader from '../layout/Preloader';
 
 export class Schedule extends Component {
     constructor(props){
@@ -8,11 +9,14 @@ export class Schedule extends Component {
             options: {},
             series: [{
                 data: []
-            }]
+            }],
+            loading: false
         }
     }
 
     componentDidMount() {
+        this.setState({ loading: true });
+
         const options = {
             title: {
                 text: 'Servers in Waves',
@@ -45,11 +49,16 @@ export class Schedule extends Component {
 
         this.setState({
             options: options,
-            series: series
+            series: series,
+            loading: false
         })
     }
 
     render() {
+        if(this.state.loading) {
+            return <Preloader />
+        }
+        
         return (
             <div>
                 <Chart 
